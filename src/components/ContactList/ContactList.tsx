@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeContact } from "redux/contactsSlice";
-
-import css from "./ContactList.module.css";
 import { Notify } from "notiflix";
 
+import { selectContacts, selectFilter } from "../../redux/selectors";
+import { removeContact } from "../../redux/contactsSlice";
+
+import css from "./ContactList.module.scss";
+
 const ContactList = () => {
-	const [filter, contacts] = useSelector(({ filter, contacts }) => [filter, contacts]);
+	const filter = useSelector(selectFilter);
+	const contacts = useSelector(selectContacts);
+
 	const disp = useDispatch();
 
 	return (

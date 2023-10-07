@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Notify } from "notiflix";
 
-import { addContact } from "redux/contactsSlice";
+import { selectContacts } from "../../redux/selectors";
+import { addContact } from "../../redux/contactsSlice";
 
-import css from "./ContactForm.module.css";
+import css from "./ContactForm.module.scss";
 
 export default function ContactForm() {
 	const [name, setName] = useState("");
 	const [number, setNumber] = useState("");
-	const contacts = useSelector(({ contacts }) => contacts);
+	const contacts = useSelector(selectContacts);
 	const dispatch = useDispatch();
 
 	const resetState = () => {
@@ -18,7 +19,7 @@ export default function ContactForm() {
 		setNumber("");
 	};
 
-	const onInputChange = e => {
+	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.currentTarget;
 
 		switch (name) {
@@ -35,7 +36,7 @@ export default function ContactForm() {
 		}
 	};
 
-	const onFormSubmit = e => {
+	const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		console.log("contacts", contacts);
